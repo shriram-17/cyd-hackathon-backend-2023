@@ -23,6 +23,7 @@ export class DbService {
     const reqWList = this.WatchLists.find((obj: any) => {
       obj.name === key;
     });
+    console.log(reqWList)
     return reqWList;
   }
 
@@ -43,4 +44,21 @@ export class DbService {
     const res = reqWList.update({ tokens: updatedTokens }).save();
     return res;
   }
+
+  async findId(id: string) {
+    const reqWList = await this.WatchLists.find((obj: any) => {
+      obj.id === id;
+    });
+    console.log(reqWList)
+    return reqWList;
+  }
+
+  async Deleterecord(id :string){
+    const reqWList = await this.WatchLists.find((obj: any) => {
+      obj.id === id;
+    });
+    this.WatchLists.Delete(reqWList)
+    return "The Given Record Is Deleted "
+  }
+
 }
