@@ -1,4 +1,5 @@
 import { Injectable, HttpException } from '@nestjs/common';
+import { FetchService } from 'nestjs-fetch';
 
 import { DbService } from './shared';
 
@@ -38,4 +39,13 @@ export class AppService {
     console.log(token)
     return "The Record is Deleted"
   }
+}
+@Injectable()
+export class ApiService {
+	constructor(private readonly fetch: FetchService) {}
+
+	async getExample(): Promise<string> {
+		const response = await this.fetch.get('https://api.covalenthq.com/v1/1/address/0x52114fb7396dbe19096ffa343d18830f5d77b6c6/balances_v2/?key=ckey_5a2de76a56af48f8a0388fe5fa3');
+		return response.text();
+	}
 }

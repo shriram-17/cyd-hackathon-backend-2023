@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post} from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService,ApiService } from './app.service';
 
 @Controller()
 export class AppController {
@@ -14,7 +14,7 @@ export class AppController {
   {
     return this.appService.getName(name)
   }
-   @Get('/:id')
+   @Get('/find/:id')
   async getbyid(@Param('id') id:string):Promise <string>
   {
     return this.appService.getId(id)
@@ -27,5 +27,17 @@ export class AppController {
   @Get('/delete/:id')
   async deletebyId(@Param('id') id : string){
     return this.appService.deleteid(id)
+  }
+
+}
+
+@Controller("/auth")
+export class ApiController {
+  constructor(private apiService: ApiService) {}
+
+  @Get('/api')
+  getData() {
+    console.log('hello')
+    return this.apiService.getExample()
   }
 }
